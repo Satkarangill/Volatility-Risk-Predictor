@@ -91,6 +91,21 @@ Execute the notebooks in sequential order (01-11):
 streamlit run dashboard/streamlit_app.py
 ```
 
+### Run Buy & Hold (Module-First)
+
+```python
+import pandas as pd
+from backtesting.backtester import Backtester, BacktestConfig
+
+# Date index + one column per asset (example: Close prices)
+prices = pd.read_csv("data/processed/cleaned_data.csv", index_col=0, parse_dates=True)
+
+backtester = Backtester(prices, BacktestConfig(transaction_cost=0.001))
+result = backtester.run_buy_and_hold_equal_weight()
+
+print(result["metrics"])
+```
+
 ## Features
 
 ### Strategies Implemented
